@@ -6,7 +6,7 @@ $host     = "db.dkvvrpepffixgqrihyrg.supabase.co";
 $port     = "6543";                                // <-- CAMBIO CLAVE: Puerto 6543 para la nube
 $dbname   = "postgres";                            
 $user     = "postgres";                            
-$password = "Monitor?Verde123";                    
+$password = "MonitorVerde2026";                    
 
 // 2. CADENA DE CONEXIÓN
 // <-- CAMBIO CLAVE: Nota las comillas simples ' ' alrededor de {$password}
