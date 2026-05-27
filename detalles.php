@@ -17,10 +17,10 @@ include 'conexion.php';
             <div class="logo-texto-izq"></div>
             
            <nav class="nav-transparente">
+          <nav class="nav-transparente">
                 <a href="index.php" class="activo">Mapa Nacional</a>
                 <a href="detalles.php">Ranking de Municipios</a>
                 <a href="#" id="btn-abrir-buscador">Detalle Departamental</a>
-                <button id="btn-dark-mode" style="background:none; border:none; font-size:1.5rem; cursor:pointer; margin-left:15px;" title="Alternar Modo Oscuro">🌙</button>
             </nav>
         </div>
 
@@ -81,30 +81,4 @@ include 'conexion.php';
         <p>&copy; 2026 Monitor Verde GT. Monitoreo estricto de Impacto Hídrico, Calidad del Aire y Desechos Sólidos.</p>
     </footer>
 </body>
-
-// ==========================================
-            // LÓGICA DEL MODO OSCURO
-            // ==========================================
-            const btnDarkMode = document.getElementById('btn-dark-mode');
-            const body = document.body;
-
-            // Revisar si el usuario ya tenía el modo oscuro activado antes
-            if (localStorage.getItem('modoOscuro') === 'activado') {
-                body.classList.add('dark-mode');
-                if(btnDarkMode) btnDarkMode.textContent = '☀️';
-            }
-
-            if(btnDarkMode) {
-                btnDarkMode.addEventListener('click', () => {
-                    body.classList.toggle('dark-mode');
-                    
-                    if (body.classList.contains('dark-mode')) {
-                        localStorage.setItem('modoOscuro', 'activado');
-                        btnDarkMode.textContent = '☀️'; // Cambia a sol
-                    } else {
-                        localStorage.setItem('modoOscuro', 'desactivado');
-                        btnDarkMode.textContent = '🌙'; // Cambia a luna
-                    }
-                });
-            }
 </html>
