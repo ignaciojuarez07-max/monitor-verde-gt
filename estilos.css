@@ -1,0 +1,922 @@
+/* =========================================
+   ESTILOS GENERALES
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* =========================================
+   ENCABEZADO Y PIE DE PÁGINA
+   ========================================= */
+.encabezado {
+    background-color: #005f73; /* Azul profundo del diseño original */
+    color: white;
+    text-align: center;
+    padding: 2.5rem 1rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.encabezado h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.pie-pagina {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: #2b2d42;
+    color: white;
+    margin-top: 3rem;
+}
+
+/* =========================================
+   CONTENEDOR Y TARJETAS
+   ========================================= */
+.contenedor-principal {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: flex; /* Cambiado de grid para centrar una única tarjeta */
+    justify-content: center;
+}
+
+.tarjeta-datos {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border-top: 4px solid #0a9396;
+    width: 100%;
+    max-width: 800px; /* Tamaño máximo para la única tarjeta */
+}
+
+/* El título en la tarjeta del mapa si decides usarlo, o puedes quitarlo */
+.tarjeta-datos h2 {
+    color: #005f73; /* Azul agua */
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+.tarjeta-datos p {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #666;
+}
+
+/* =========================================
+   MAPA SVG INTERACTIVO
+   ========================================= */
+.contenedor-mapa-svg {
+    width: 100%;
+    max-height: 500px; 
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    background-color: white; /* Cambiado a blanco para limpieza */
+    border-radius: 4px;
+    padding: 1rem;
+}
+
+.contenedor-mapa-svg svg {
+    width: 100%;
+    height: auto;
+}
+
+/* Comportamiento de los departamentos al interactuar */
+.contenedor-mapa-svg svg path {
+    cursor: pointer;
+    transition: fill 0.3s ease, opacity 0.3s ease;
+    fill: #9c9f9c; /* Color verde agua suave para el mapa (de image_0.png) */
+}
+
+/* Efecto al pasar el mouse sobre un departamento */
+.contenedor-mapa-svg svg path:hover {
+    opacity: 0.8;
+    fill: #005f73; /* Azul agua para resaltar */
+}
+
+/* =========================================
+   VENTANA EMERGENTE (TOOLTIP) - DISEÑO PULIDO
+   ========================================= */
+.ventana-emergente {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 2px solid #005f73;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    /* pointer-events: none;  <--- ¡BORRA ESTA LÍNEA! */
+    pointer-events: auto; /* <--- Agrega esta para asegurar que los clics funcionen */
+    z-index: 1000;
+    display: none; 
+    min-width: 280px;
+}
+
+.ventana-emergente h3 {
+    margin-bottom: 15px;
+    color: #005f73; /* Azul agua */
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+.ventana-emergente .datos-hídricos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ventana-emergente p {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.ventana-emergente .estado-servidor {
+    color: #999;
+    font-weight: normal;
+    font-style: italic;
+    font-size: 0.85rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.ventana-emergente span {
+    font-weight: normal;
+    color: #333;
+}
+
+/* =========================================
+   MENÚ DE NAVEGACIÓN
+   ========================================= */
+.menu-navegacion {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.menu-navegacion a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.15);
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.menu-navegacion a:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.menu-navegacion a.activo {
+    background-color: #0a9396; /* Color de resalte para la página actual */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* =========================================
+   TABLA DE RANKING (Para la nueva página)
+   ========================================= */
+.contenedor-tabla {
+    overflow-x: auto;
+    margin-top: 1.5rem;
+}
+
+.tabla-ranking {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.tabla-ranking th, .tabla-ranking td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.tabla-ranking th {
+    background-color: #005f73;
+    color: white;
+    font-weight: bold;
+}
+
+.tabla-ranking tr:hover {
+    background-color: #f8f9fa;
+}
+
+.nivel-critico {
+    color: #ae2012;
+    font-weight: bold;
+}
+
+/* =========================================
+   BOTONES DE DEPARTAMENTOS (detalles.php)
+   ========================================= */
+.grid-departamentos {
+    display: grid;
+    /* Esto hace que los botones se acomoden solos dependiendo del tamaño de la pantalla */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-departamento {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #005f73;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-departamento:hover {
+    background-color: #0a9396;
+    transform: translateY(-3px); /* Pequeño salto al pasar el mouse */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.icono-flecha {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* =========================================
+   PERFIL DE DEPARTAMENTO (departamento.php)
+   ========================================= */
+.perfil-departamento {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Divide en dos columnas */
+    gap: 20px;
+    max-width: 1200px; /* Un poco más ancho para que quepa todo */
+}
+
+.contenedor-foto {
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #e9ecef;
+}
+
+/* Este es el recuadro gris temporal mientras pones tus fotos reales */
+.foto-placeholder {
+    width: 100%;
+    height: 250px;
+    background-color: #d3d3d3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #555;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.contenedor-foto img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.texto-analisis p {
+    text-align: justify;
+    line-height: 1.8;
+    color: #444;
+}
+
+/* En celulares, ponemos una cosa debajo de la otra */
+@media (max-width: 768px) {
+    .perfil-departamento {
+        grid-template-columns: 1fr; 
+    }
+}
+
+/* =========================================
+   NUEVA IDENTIDAD VISUAL: MONITOR VERDE GT
+   ========================================= */
+
+/* 1. Fondo de la página (Deja de ser blanco puro para dar un toque premium) */
+body {
+    background-color: #f4f7f6; 
+}
+
+/* 2. Color de los títulos principales */
+h1, h2, h3, .encabezado p {
+    color: #1b4332; /* Verde bosque muy oscuro, casi negro, súper elegante */
+}
+
+/* 3. El encabezado superior (Fondo principal) */
+.encabezado {
+    background-color: #2d6a4f; /* Verde esmeralda profesional */
+    border-bottom: 4px solid #40916c; /* Línea decorativa inferior */
+}
+
+/* 4. Menú de navegación y botones */
+.menu-navegacion a.activo, 
+.btn-departamento, 
+#btn-detalles {
+    background-color: #40916c !important; /* Verde estándar equilibrado */
+    color: white !important;
+    border: none;
+}
+
+/* Efecto al pasar el mouse por los botones */
+.btn-departamento:hover, 
+#btn-detalles:hover {
+    background-color: #52b788 !important; /* Brilla un poco al pasar el cursor */
+    transform: translateY(-3px);
+}
+
+/* 5. Bordes de la ventana emergente del mapa y tarjetas */
+.ventana-emergente {
+    border: 2px solid #2d6a4f;
+}
+
+.tarjeta-datos {
+    background-color: white;
+    border-top: 4px solid #40916c; /* Acento verde en las tarjetas blancas */
+    box-shadow: 0 4px 10px rgba(45, 106, 79, 0.1); /* Sombra ligeramente verdosa */
+}
+
+/* 6. Tabla de datos (Encabezado) */
+.tabla-ranking th {
+    background-color: #2d6a4f;
+    color: white;
+}
+
+/* =========================================
+   DISEÑO PREMIUM Y TIPOGRAFÍA MODERNA
+   ========================================= */
+/* Importamos la fuente Poppins de Google (Moderna, geométrica, limpia) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif; /* Aplicamos la nueva fuente a todo */
+}
+
+/* Matamos el azul feo por defecto de los navegadores */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* =========================================
+   NUEVO ENCABEZADO CON LOGOS
+   ========================================= */
+.encabezado-moderno {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1b4332; /* Verde bosque muy elegante */
+    padding: 15px 40px;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.logo-contenedor img {
+    height: 70px; /* Tamaño ideal para los logos de las esquinas */
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3)); /* Pequeña sombra para resaltar */
+}
+
+.centro-encabezado {
+    text-align: center;
+    flex-grow: 1;
+}
+
+.centro-encabezado h1 {
+    margin: 0;
+    font-size: 2.2rem;
+    color: #d8f3dc; /* Verde clarito para resaltar el título sobre el fondo oscuro */
+    letter-spacing: 1px;
+}
+
+.subtitulo-header {
+    margin: 5px 0 15px 0;
+    font-size: 0.9rem;
+    color: #95d5b2;
+}
+
+/* Menú rediseñado tipo pastillas (Pills) */
+.menu-navegacion {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.menu-navegacion a {
+    padding: 8px 20px;
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo semi-transparente */
+    border-radius: 20px; /* Bordes redondeados modernos */
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.menu-navegacion a:hover, 
+.menu-navegacion a.activo {
+    background-color: #52b788;
+    color: #081c15;
+    transform: translateY(-2px);
+}
+
+/* =========================================
+   TARJETA DE CONSEJO VERDE
+   ========================================= */
+.tarjeta-consejo {
+    background: linear-gradient(135deg, #d8f3dc 0%, #b7e4c7 100%);
+    border-left: 5px solid #2d6a4f;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    color: #1b4332;
+}
+
+.tarjeta-consejo h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.tarjeta-consejo p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* =========================================
+   NUEVA ESTÉTICA PREMIUM PARA LAS IMÁGENES
+   ========================================= */
+
+/* 1. EL CONTENEDOR (El marco premium) */
+.contenedor-foto {
+    width: 100%;
+    height: 320px; /* Forzamos una altura fija para estabilidad visual */
+    margin-bottom: 25px;
+    border-radius: 12px; /* Esquinas más suaves y modernas */
+    overflow: hidden; /* Corta todo lo que se salga */
+    border: 3px solid #e9ecef; /* Un marco interno muy sutil */
+    
+    /* Sombra con profundidad (una interna y otra externa) */
+    box-shadow: 
+        inset 0 2px 4px rgba(0,0,0,0.05), 
+        0 8px 25px rgba(45, 106, 79, 0.12); /* Sombra externa verdosa muy leve */
+    
+    position: relative; /* Para posibles overlays futuros */
+    transition: all 0.3s ease;
+}
+
+/* Efecto al pasar el mouse por encima de la tarjeta (Verdoso sutil) */
+.tarjeta-datos:hover .contenedor-foto {
+    box-shadow: 
+        inset 0 2px 4px rgba(0,0,0,0.05), 
+        0 12px 35px rgba(45, 106, 79, 0.2); 
+    transform: translateY(-2px); /* Pequeño salto */
+}
+
+/* 2. LA FOTO REAL (Ej: Escuintla - Imagen 8) */
+.contenedor-foto img {
+    width: 100%;
+    height: 100%; /* Llena el contenedor fixed */
+    display: block;
+    
+    /* MÁGICO: Recorta la foto para encajar en el marco sin estirarse. */
+    object-fit: cover; 
+    object-position: center; /* Enfoca el centro de la imagen */
+}
+
+/* 3. EL PLACEHOLDER (Ej: Petén - Imagen 9) */
+.foto-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column; /* Apila ícono y texto */
+    justify-content: center;
+    align-items: center;
+    
+    /* Degradado sutil para que no sea solo gris plano */
+    background: linear-gradient(135deg, #f0f7f4 0%, #d8e6df 100%);
+    
+    color: #52796f; /* Un verde grisáceo elegante para el texto */
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Ícono simulado para el placeholder (Cámara o Paisaje) */
+.foto-placeholder::before {
+    content: "📷"; /* Usamos un emoji como símbolo simple */
+    font-size: 4rem; /* Grande y prominente */
+    margin-bottom: 15px;
+    opacity: 0.6; /* Sutil */
+}
+
+.foto-placeholder span {
+    font-size: 1.1rem;
+    font-weight: 600; /* Negrita media de Poppins */
+    opacity: 0.9;
+    letter-spacing: 0.5px;
+}
+
+/* =========================================
+   ENCABEZADO TIPO "HERO" (Versión Angosta)
+   ========================================= */
+
+.hero-header {
+    background-image: radial-gradient(circle at center, rgba(17, 42, 28, 0.4) 0%, rgba(17, 42, 28, 0.85) 100%), url('img/fondo_hero.png');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding-bottom: 30px; /* Reducido drásticamente para quitar espacio muerto */
+    border-bottom: 5px solid #52b788;
+}
+
+.barra-superior {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px; /* Reducimos el espacio del menú superior */
+}
+
+/* --- CONTENIDO CENTRAL --- */
+.hero-contenido {
+    text-align: center;
+    margin-top: 10px; /* Subimos el texto para que no use tanto espacio vertical */
+    padding: 0 20px;
+}
+
+.hero-titulo {
+    font-size: 3.2rem; /* Mucho más pequeño y elegante (antes 4rem o 5.5rem) */
+    font-weight: 900;
+    margin: 0;
+    letter-spacing: 1px;
+    color: #ffffff;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.7); 
+}
+
+.hero-titulo span {
+    color: #52b788; 
+}
+
+.hero-subtitulo {
+    font-size: 0.95rem; /* Un poco más pequeño y sutil */
+    letter-spacing: 2px;
+    color: #d8f3dc;
+    margin-top: 5px;
+    line-height: 1.6;
+    font-weight: 400;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+}
+
+/* =========================================
+   VENTANA EMERGENTE (MODAL BUSCADOR)
+   ========================================= */
+.modal-oculto {
+    display: none; /* Invisible hasta que se haga clic */
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px); /* Desenfoque del mapa de fondo */
+}
+
+.modal-contenido {
+    background-color: #f4f7f6;
+    margin: 10% auto;
+    padding: 30px 40px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    text-align: center;
+    border-top: 5px solid #2d6a4f;
+}
+
+.modal-contenido h2 { margin-top: 0; }
+.modal-contenido p { color: #555; font-size: 0.95rem; }
+
+.cerrar-modal {
+    color: #999;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.cerrar-modal:hover { color: #1b4332; }
+
+/* Caja de input + botón */
+.caja-busqueda {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+    padding: 5px;
+    margin-top: 20px;
+    transition: border 0.3s;
+}
+
+.caja-busqueda:focus-within { border-color: #52b788; }
+
+.icono-lupa { font-size: 1.2rem; margin: 0 10px; }
+
+#input-busqueda {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: 10px;
+    font-family: 'Poppins', sans-serif;
+    background: transparent;
+}
+
+#btn-buscar-depto {
+    background-color: #2d6a4f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    transition: background 0.3s;
+}
+
+#btn-buscar-depto:hover { background-color: #1b4332; }
+
+/* =========================================
+   CORRECCIONES FINALES DE COLOR Y MENÚ
+   ========================================= */
+
+/* 1. MATAR EL AZUL: Forzamos todos los títulos y subtítulos al verde corporativo */
+h1, h2, h3, h4, h5, h6, .tarjeta-datos h2 {
+    color: #1b4332 !important; 
+}
+
+/* 2. EL MENÚ: Siempre blanco, solo se pone verde al pasar el mouse */
+.nav-transparente a {
+    color: #ffffff !important; /* Letras blancas por defecto */
+    border-bottom: 2px solid transparent !important; /* Sin línea por defecto */
+}
+
+/* El efecto EXACTO que pediste: solo cambia al pasar el cursor (hover) */
+.nav-transparente a:hover {
+    color: #52b788 !important; /* Letras verdes al pasar el mouse */
+    border-bottom: 2px solid #52b788 !important; /* Línea verde al pasar el mouse */
+}
+
+/* Apagamos el estado "activo" permanente para que no se quede pegado en verde */
+.nav-transparente a.activo {
+    color: #ffffff !important;
+    border-bottom: transparent !important;
+}
+
+/* 3. EL PIE DE PÁGINA (Footer): Adiós al fondo azul oscuro */
+.pie-pagina {
+    background-color: #081c15 !important; /* Verde súper oscuro, casi negro, muy elegante */
+    color: #d8f3dc !important; /* Texto verde muy clarito */
+    text-align: center;
+    padding: 25px 0;
+    margin-top: 40px;
+    border-top: 4px solid #2d6a4f; /* Una línea decorativa para separarlo del contenido */
+}
+
+
+/* =========================================
+   REPARACIÓN DEL MENÚ (Separación y Elegancia)
+   ========================================= */
+
+.barra-superior {
+    display: flex;
+    justify-content: flex-end !important; /* Empuja el menú a la derecha */
+    padding: 20px 50px !important;
+}
+
+.nav-transparente {
+    display: flex !important;
+    gap: 40px !important; /* Esta es la magia: 40px de separación real entre cada opción */
+    align-items: center !important;
+}
+
+.nav-transparente a {
+    color: #ffffff !important;
+    font-size: 1rem !important; /* Tamaño perfecto, ni muy grande ni muy chico */
+    font-weight: 700 !important; /* Letra negrita para que resalte */
+    text-transform: uppercase !important; /* OBLIGA a que sean MAYÚSCULAS */
+    letter-spacing: 1.5px !important; /* Separación entre cada letra de la palabra */
+    text-shadow: 0 2px 5px rgba(0,0,0,0.8) !important; /* Sombra negra fuerte para que se lea contra el volcán */
+    border-bottom: 3px solid transparent !important;
+    padding-bottom: 5px !important;
+    transition: all 0.3s ease !important;
+}
+
+/* El efecto al pasar el mouse */
+.nav-transparente a:hover {
+    color: #52b788 !important; /* Se pone verde */
+    border-bottom: 3px solid #52b788 !important; /* Sale la línea verde abajo */
+}
+
+/* =========================================
+   MODO OSCURO (DARK MODE)
+   ========================================= */
+body.dark-mode {
+    background-color: #081c15 !important; /* Fondo casi negro */
+    color: #d8f3dc !important; /* Texto verde clarito */
+}
+
+body.dark-mode .tarjeta-datos, 
+body.dark-mode .modal-contenido {
+    background-color: #112a20 !important; /* Tarjetas oscuras */
+    border-top: 4px solid #52b788 !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;
+}
+
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, 
+body.dark-mode .tarjeta-datos h2 {
+    color: #52b788 !important; /* Títulos en verde brillante */
+}
+
+body.dark-mode .tabla-ranking th {
+    background-color: #1b4332 !important;
+}
+
+body.dark-mode .tabla-ranking td, 
+body.dark-mode p, 
+body.dark-mode .modal-contenido p {
+    color: #e9ecef !important;
+}
+
+
+/* =========================================
+   MODO OSCURO (DARK MODE)
+   ========================================= */
+body.dark-mode {
+    background-color: #081c15 !important; 
+    color: #d8f3dc !important; 
+}
+
+/* Tarjetas y ventanas emergentes en modo oscuro */
+body.dark-mode .tarjeta-datos, 
+body.dark-mode .modal-contenido {
+    background-color: #112a20 !important; 
+    border-top: 4px solid #52b788 !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;
+}
+
+/* Títulos resplandecientes */
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode .tarjeta-datos h2 {
+    color: #52b788 !important; 
+}
+
+/* Tabla de datos */
+body.dark-mode .tabla-ranking th {
+    background-color: #1b4332 !important;
+}
+
+body.dark-mode .tabla-ranking td, 
+body.dark-mode p, 
+body.dark-mode .modal-contenido p,
+body.dark-mode .tarjeta-consejo {
+    color: #e9ecef !important;
+    background: transparent !important;
+}
+
+/* Gráfica con fondo limpio */
+body.dark-mode canvas {
+    background-color: #112a20 !important;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+/* =========================================
+   CORRECCIÓN DE LA TABLA EN MODO OSCURO
+   ========================================= */
+body.dark-mode .tabla-ranking {
+    background-color: #112a20 !important;
+}
+
+body.dark-mode .tabla-ranking td {
+    background-color: #081c15 !important; /* Fondo verde súper oscuro para las celdas */
+    color: #d8f3dc !important; /* Letras claras legibles */
+    border-bottom: 1px solid #1b4332 !important; /* Líneas divisorias oscuras */
+}
+
+body.dark-mode .tabla-ranking tr:hover td {
+    background-color: #1b4332 !important; /* Brillo al pasar el mouse */
+}
+
+/* =========================================
+   DISEÑO RESPONSIVO (TELÉFONOS MÓVILES)
+   ========================================= */
+@media screen and (max-width: 768px) {
+    /* 1. Menú mucho más compacto y fino */
+    .barra-superior { 
+        padding: 10px !important; 
+        flex-direction: column !important;
+    }
+    .nav-transparente { 
+        flex-wrap: wrap !important; 
+        justify-content: center !important; 
+        gap: 8px !important; /* Juntamos más las opciones */
+    }
+    .nav-transparente a { 
+        font-size: 0.7rem !important; /* Letra más chiquita */
+        letter-spacing: 0.5px !important;
+    }
+
+    /* 2. Título ajustado para que quepa en una sola línea */
+    .hero-titulo { 
+        font-size: 1.8rem !important; /* Reducimos el tamaño */
+        margin-top: 5px !important;
+    }
+    .hero-subtitulo { 
+        font-size: 0.75rem !important; 
+        line-height: 1.4 !important;
+        padding: 0 10px;
+    }
+    .hero-header {
+        padding-bottom: 20px !important; /* Quitamos espacio muerto abajo */
+    }
+
+    /* 3. Apilar las columnas (La info arriba y la tabla/gráfica abajo) */
+    .contenedor-principal.perfil-departamento {
+        display: flex !important;
+        flex-direction: column !important;
+        padding: 10px !important;
+    }
+
+    /* 4. Proteger la tabla */
+    .contenedor-tabla {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 8px;
+    }
+    .tabla-ranking { 
+        width: 100%; 
+        min-width: 500px; 
+    }
+}
+
+/* =========================================
+   CORRECCIÓN DEL MAPA EN MODO OSCURO (INDEX)
+   ========================================= */
+
+/* 1. Matar el fondo blanco detrás del mapa SVG */
+body.dark-mode svg,
+body.dark-mode .contenedor-mapa-svg,
+body.dark-mode .mapa-guatemala {
+    background-color: transparent !important;
+}
+
+/* 2. Oscurecer la ventanita emergente */
+body.dark-mode .ventana-emergente {
+    background-color: #081c15 !important; /* Verde casi negro */
+    border: 2px solid #52b788 !important; /* Borde verde esmeralda */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.8) !important; /* Sombra fuerte */
+}
+
+/* 3. Arreglar los colores de las letras dentro de la ventanita */
+body.dark-mode .ventana-emergente h3 {
+    color: #52b788 !important; /* Título del departamento brillante */
+    border-bottom: 1px solid #1b4332 !important; /* Línea divisoria oscura */
+}
+
+body.dark-mode .ventana-emergente .dato,
+body.dark-mode .ventana-emergente div {
+    color: #d8f3dc !important; /* Textos claros y legibles */
+}
+
+/* 4. Opcional: Hacer que el gris del mapa sea un poco más oscuro y acorde al tema */
+body.dark-mode svg path {
+    stroke: #081c15 !important; /* Líneas de división más oscuras */
+}
