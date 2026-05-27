@@ -1,15 +1,16 @@
 <?php
 // conexion.php
 
-// 1. CREDENCIALES DE SUPABASE (Corregidas para conexión directa a Postgres)
-$host     = "db.dkvvrpepffixgqrihyrg.supabase.co"; // Tu host real de base de datos
-$port     = "6543";                                // Puerto estándar de PostgreSQL
-$dbname   = "postgres";                            // Siempre es postgres en Supabase
-$user     = "postgres";                            // El usuario del motor siempre es postgres
-$password = "Monitor?Verde123";                    // La contraseña que creaste al inicio del proyecto
+// 1. CREDENCIALES DE SUPABASE
+$host     = "db.dkvvrpepffixgqrihyrg.supabase.co"; 
+$port     = "6543";                                // <-- CAMBIO CLAVE: Puerto 6543 para la nube
+$dbname   = "postgres";                            
+$user     = "postgres";                            
+$password = "Monitor?Verde123";                    
 
-// 2. CADENA DE CONEXIÓN (Obligatorio incluir sslmode=require para bases de datos en la nube)
-$connection_string = "host={$host} port={$port} dbname={$dbname} user={$user} password={$password} sslmode=require";
+// 2. CADENA DE CONEXIÓN
+// <-- CAMBIO CLAVE: Nota las comillas simples ' ' alrededor de {$password}
+$connection_string = "host={$host} port={$port} dbname={$dbname} user={$user} password='{$password}' sslmode=require";
 
 // 3. EJECUTAR LA CONEXIÓN
 $dbconn = pg_connect($connection_string);
@@ -28,6 +29,4 @@ if (!$dbconn) {
     echo "</div>";
     exit;
 }
-
-// Si llega aquí, la conexión fue un éxito y la variable $dbconn ya está disponible para tus consultas PHP.
 ?>
