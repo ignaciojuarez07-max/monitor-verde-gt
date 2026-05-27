@@ -2,7 +2,7 @@
 // conexion.php
 
 // 1. CREDENCIALES DE SUPABASE (Corregidas para conexión directa a Postgres)
-$host     = "db.dkvvrpepffixgqrihyrg.supabase.com"; // Tu host real de base de datos
+$host     = "db.dkvvrpepffixgqrihyrg.supabase.co"; // Tu host real de base de datos
 $port     = "6543";                                // Puerto estándar de PostgreSQL
 $dbname   = "postgres";                            // Siempre es postgres en Supabase
 $user     = "postgres";                            // El usuario del motor siempre es postgres
